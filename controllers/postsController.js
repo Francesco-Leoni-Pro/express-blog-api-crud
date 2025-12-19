@@ -13,8 +13,9 @@ function show(req, res) {
   res.json(post);
 }
 
-// Create (ancora solo messaggio)
+// Create → stampa i dati ricevuti e risponde con messaggio
 function store(req, res) {
+  console.log(req.body); // mostra nel terminale i dati inviati da Postman
   res.send("Creazione nuovo post");
 }
 
