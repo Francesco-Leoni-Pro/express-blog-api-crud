@@ -31,8 +31,23 @@ function store(req, res) {
 
 // Update (PUT) (ancora solo messaggio)
 function update(req, res) {
-  const { id } = req.params;
-  res.send(`Aggiornamento completo del post ${id}`);
+  const id = parseInt(req.params.id);
+  const updatedPost = req.body;
+
+  // Controllo se l'id esiste
+  if (id < 0 || id >= posts.length) {
+    return res.status(404).json({ message: "Post non trovato" });
+  }
+
+  // Aggiorna completamente il post
+  posts[id] = updatedPost;
+
+  console.log(posts); // lista aggiornata nel terminale
+
+  res.json({
+    message: `Post ${id} aggiornato con successo`,
+    post: updatedPost
+  });
 }
 
 // Modify (PATCH) (ancora solo messaggio)
