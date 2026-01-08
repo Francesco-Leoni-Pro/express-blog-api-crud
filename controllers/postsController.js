@@ -6,9 +6,15 @@ function index(req, res) {
 }
 
 // Show → restituisce un singolo post in JSON
-function show(req, res) {
+function show(req, res, next) {
   const id = parseInt(req.params.id);
   const post = posts[id];
+
+  if (!post) {
+    const error = new Error("Post non trovato");
+    error.status = 404;
+    return next(error);
+  }
 
   res.json(post);
 }

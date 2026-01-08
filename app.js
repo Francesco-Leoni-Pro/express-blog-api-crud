@@ -16,6 +16,22 @@ app.get("/", (req, res) => {
 // Registrazione router con prefisso /posts
 app.use("/posts", postsRouter);
 
+// Middleware 404 - rotta non trovata
+app.use((req, res) => {
+  res.status(404).json({
+    error: "Endpoint non trovato"
+  });
+});
+
+// Middleware di gestione errori
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+
+  res.status(err.status || 500).json({
+  error: err.message || "Errore interno del server"
+});
+});
+
 // Avvio server
 app.listen(port, () => {
   console.log(`Server avviato su http://localhost:${port}`);
